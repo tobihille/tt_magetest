@@ -2,6 +2,7 @@
 <config>
   <default>
     <xtest>
+
       <selenium>
         <screenshot>
           <breakpoints>320x1024,481x1024,768x1024,961x1024,1025x1024,1281x1024</breakpoints>

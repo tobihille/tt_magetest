@@ -15,4 +15,19 @@
     </helpers>
   </global>
 
+  <default>
+    <!-- currently ok despite typo -->
+    <xtext>
+      <force>
+        <index>true</index>
+      </force>
+    </xtext>
+    <!-- should be spelled this way (my own fault, PR was from me)-->
+    <xtest>
+      <force>
+        <index>true</index>
+      </force>
+    </xtest>
+  </default>
+
 </config>
