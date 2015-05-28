@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Tt_MageTest>
+      <active>true</active>
+      <codePool>community</codePool>
+      <depends>
+        <Codex_Xtest/>
+        <Mage_Core/>
+
+      </depends>
+    </Tt_MageTest>
+  </modules>
+</config>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config>
+
+  <modules>
+    <Tt_MageTest>
+      <version>0.1.0</version>
+    </Tt_MageTest>
+  </modules>
+
+  <global>
+    <helpers>
+      <tt_magetest>
+        <class>Tt_MageTest_Helper</class>
+      </tt_magetest>
+    </helpers>
+  </global>
+
+</config>
