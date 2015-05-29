@@ -38,16 +38,7 @@
       </force>
 
       <frontendtest>
-        <homepage>
-          <url_1>
-            <url>/</url>
-            <rendername>FE_homePage</rendername>
-            <assert>
-              <a1><![CDATA[class=" cms-index-index cms-home"]]></a1>
-            </assert>
-          </url_1>
-        </homepage>
-        <footerlinks>
+        <urls>
           <url_1>
             <url>/about-magento-demo-store</url>
             <rendername>FE_Footer_AboutPage</rendername>
@@ -97,12 +88,19 @@
               <a1><![CDATA[class=" catalogsearch-advanced-index"]]></a1>
             </assert>
           </url_7>
-        </footerlinks>
+          <url_8>
+            <url>/</url>
+            <rendername>FE_homePage</rendername>
+            <assert>
+              <a1><![CDATA[class=" cms-index-index cms-home"]]></a1>
+            </assert>
+          </url_8>
+        </urls>
       </frontendtest>
 
       <admintest>
         <user>admin</user>
-        <sales>
+        <urls>
           <url_1>
             <url>/admin/sales_order/index</url>
             <rendername>ADM_Sales_OrderIndex</rendername>
@@ -110,7 +108,7 @@
               <a1><![CDATA[<a href="#" name="real_order_id" title="asc" class="not-sort">]]></a1>
             </assert>
           </url_1>
-        </sales>
+        </urls>
       </admintest>
 
       <customertest>
@@ -120,7 +118,7 @@
           </customer_1>
         </customers>
 
-        <pages>
+        <urls>
           <url_1>
             <url>/customer/account/index</url>
             <assert>
@@ -128,7 +126,7 @@
             </assert>
             <rendername>FE_Customer_Dashboard</rendername>
           </url_1>
-        </pages>
+        </urls>
       </customertest>
 
       <producttest>

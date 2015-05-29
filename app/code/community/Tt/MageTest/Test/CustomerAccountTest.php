@@ -25,7 +25,7 @@ class Tt_MageTest_Test_CustomerAccountTest extends Tt_MageTest_Xtest_Unit_Custom
 
       $this->setCustomerAsLoggedIn($customers->getFirstItem());
 
-      $pagesConf = self::getCustomerConfig('pages');
+      $pagesConf = self::getCustomerConfig('urls');
 
       $this->_helper->doGeneralTest($pagesConf, $this);
     }

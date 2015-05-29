@@ -1,6 +1,6 @@
 <?php
 
-class Tt_MageTest_Test_AdminOrderTest extends Tt_MageTest_Xtest_Unit_Admin
+class Tt_MageTest_Test_AdminTest extends Tt_MageTest_Xtest_Unit_Admin
 {
   /**
    * @var Tt_MageTest_Helper_Data
@@ -14,9 +14,9 @@ class Tt_MageTest_Test_AdminOrderTest extends Tt_MageTest_Xtest_Unit_Admin
     $this->_helper = Mage::helper('tt_magetest');
   }
 
-  public function testSalesOrder()
+  public function testGeneralAdmin()
   {
-    $salesConfig = self::getAdminConfig('sales');
+    $salesConfig = self::getAdminConfig('urls');
 
     $this->_helper->doGeneralTest($salesConfig, $this);
   }
