@@ -1,6 +1,6 @@
 <?php
 
-class Tt_MageTest_Helper_AbstractAdminT extends Codex_Xtest_Xtest_Unit_Admin
+class Tt_MageTest_Xtest_Unit_Admin extends Codex_Xtest_Xtest_Unit_Admin
 {
 
   public static function getAdminConfig($path, $noError = false)

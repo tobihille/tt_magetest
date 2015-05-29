@@ -1,6 +1,6 @@
 <?php
 
-class Tt_MageTest_Helper_AbstractFrontendT extends Codex_Xtest_Xtest_Unit_Frontend
+class Tt_MageTest_Xtest_Unit_Frontend extends Codex_Xtest_Xtest_Unit_Frontend
 {
 
   public static function getFrontendConfig($path)

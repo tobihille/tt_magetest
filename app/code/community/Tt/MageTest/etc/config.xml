@@ -8,11 +8,19 @@
   </modules>
 
   <global>
+
     <helpers>
       <tt_magetest>
         <class>Tt_MageTest_Helper</class>
       </tt_magetest>
     </helpers>
+
+    <xtests>
+      <tt_magetest>
+        <class>Tt_MageTest_Xtest</class>
+      </tt_magetest>
+    </xtests>
+
   </global>
 
   <default>
@@ -24,6 +32,7 @@
     </xtext>
     <!-- should be spelled this way (my own fault, PR was from me)-->
     <xtest>
+
       <force>
         <index>true</index>
       </force>
@@ -86,7 +95,24 @@
         </sales>
       </admintest>
 
+      <customertest>
+        <customers>
+          <customer_1>
+            <username>janedoe@example.com</username>
+          </customer_1>
+        </customers>
+
+        <pages>
+          <url_1>
+            <url>/customer/account/index</url>
+            <assert><![CDATA[<body class=" customer-account-index customer-account">]]></assert>
+            <rendername>FE_Customer_Dashboard</rendername>
+          </url_1>
+        </pages>
+      </customertest>
+
     </xtest>
+
   </default>
 
 </config>

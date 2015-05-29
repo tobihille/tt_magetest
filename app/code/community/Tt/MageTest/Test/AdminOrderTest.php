@@ -1,6 +1,6 @@
 <?php
 
-class Tt_MageTest_Test_AdminOrderTest extends Tt_MageTest_Helper_AbstractAdminT
+class Tt_MageTest_Test_AdminOrderTest extends Tt_MageTest_Xtest_Unit_Admin
 {
   /**
    * @var Tt_MageTest_Helper_Data

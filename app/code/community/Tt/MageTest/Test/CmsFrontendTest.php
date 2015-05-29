@@ -1,6 +1,6 @@
 <?php
 
-class Tt_MageTest_Test_CmsFrontendTest extends Tt_MageTest_Helper_AbstractFrontendT
+class Tt_MageTest_Test_CmsFrontendTest extends Tt_MageTest_Xtest_Unit_Frontend
 {
 
   /**
