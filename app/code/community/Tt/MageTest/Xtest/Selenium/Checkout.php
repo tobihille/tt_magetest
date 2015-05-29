@@ -1,6 +1,6 @@
 <?php
 
-class Tt_MageTest_Xtest_Selenium_TestCase extends Codex_Xtest_Xtest_Selenium_TestCase
+class Tt_MageTest_Xtest_Selenium_Checkout extends Codex_Xtest_Xtest_Selenium_TestCase
 {
 
   public static function getCheckoutConfig($path)

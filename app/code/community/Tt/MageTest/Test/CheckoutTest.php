@@ -1,6 +1,6 @@
 <?php
 
-class Tt_MageTest_Test_CheckoutTest extends Tt_MageTest_Xtest_Selenium_TestCase
+class Tt_MageTest_Test_CheckoutTest extends Tt_MageTest_Xtest_Selenium_Checkout
 {
 
   protected static $_customerEmail;

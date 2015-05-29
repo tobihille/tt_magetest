@@ -5,9 +5,9 @@ class Tt_MageTest_Helper_Data extends Mage_Core_Helper_Abstract
 
   /**
    * @param $config
-   * @param Codex_Xtest_Xtest_Unit_Abstract $testObject
+   * @param mixed $testObject
    */
-  public function doGeneralTest(array $config, Codex_Xtest_Xtest_Unit_Abstract $testObject)
+  public function doGeneralTest(array $config, $testObject)
   {
     if ( !method_exists($testObject, 'doGeneralAssert') )
     {
@@ -24,24 +24,81 @@ class Tt_MageTest_Helper_Data extends Mage_Core_Helper_Abstract
 
       error_log( $this->__('Running tests for URL %s', $configEntry['url']) );
 
-      $testObject->dispatch($configEntry['url']);
-      $responseBody = $testObject->getResponseBody();
-      $testObject->renderHtml($configEntry['rendername'], $responseBody);
-
-      if ( is_array($configEntry['assert']) )
+      if ( isset($configEntry['clickon']) && $testObject instanceof Codex_Xtest_Xtest_Selenium_TestCase)
       {
-        foreach ($configEntry['assert'] as $assert)
-        {
-          $testObject->assertContains($assert, $responseBody);
-        }
+        $this->doPageTest($configEntry, $testObject);
       }
       else
       {
-        $testObject->assertContains($configEntry['assert'], $responseBody);
+        $this->doRegularTest($configEntry, $testObject);
       }
-
-      $testObject->doGeneralAssert($responseBody);
     }
+  }
+
+  protected function doPageTest(array $configEntry, Codex_Xtest_Xtest_Selenium_TestCase $testObject)
+  {
+    /**
+     * @var Codex_Xtest_Xtest_Pageobject_Frontend_Homepage $page
+     */
+    $page = $testObject->getPageObject('xtest/pageobject_frontend_homepage');
+
+    $baseUrl = Mage::getBaseUrl();
+    $baseUrl = trim($baseUrl, '/');
+    $page->url($baseUrl.$configEntry['url']);
+
+    $elements = $page->findElementsByCssSelector($configEntry['clickon']);
+
+    foreach ($elements as $element)
+    {
+      $element->click();
+    }
+
+    $responseBody = $page->source();
+
+    if ( is_array($configEntry['assert']) )
+    {
+      foreach ($configEntry['assert'] as $assert)
+      {
+        $assert = $this->assertParser($assert);
+        $page->assertContains($assert, $responseBody, 'Assert failed: '.$assert);
+      }
+    }
+    else
+    {
+      $assert = $this->assertParser($configEntry['assert']);
+      $page->assertContains($assert, $responseBody, 'Assert failed: '.$assert);
+    }
+
+    $page->takeResponsiveScreenshots($configEntry['rendername']);
+
+    $testObject->doGeneralAssert($responseBody);
+  }
+
+  protected function doRegularTest(array $configEntry, Codex_Xtest_Xtest_Unit_Abstract $testObject, $omitScreenshot = false)
+  {
+    $testObject->dispatch($configEntry['url']);
+    $responseBody = $testObject->getResponseBody();
+
+    if ( !$omitScreenshot )
+    {
+      $testObject->renderHtml($configEntry['rendername'], $responseBody);
+    }
+
+    if ( is_array($configEntry['assert']) )
+    {
+      foreach ($configEntry['assert'] as $assert)
+      {
+        $assert = $this->assertParser($assert);
+        $testObject->assertContains($assert, $responseBody);
+      }
+    }
+    else
+    {
+      $assert = $this->assertParser($configEntry['assert']);
+      $testObject->assertContains($assert, $responseBody);
+    }
+
+    $testObject->doGeneralAssert($responseBody);
   }
 
   public function fetchUrlFromConfig(array $configEntry)
@@ -83,4 +140,18 @@ class Tt_MageTest_Helper_Data extends Mage_Core_Helper_Abstract
     return $url;
   }
 
+  public function assertParser($assertString)
+  {
+    $assertString = str_replace(
+        '[[unsecure_base_url]]',
+        Mage::getStoreConfig('web/unsecure/base_url'). (Mage::getStoreConfig('xtest/force/index') ? 'index.php/' : ''),
+        $assertString);
+
+    $assertString = str_replace(
+        '[[secure_base_url]]',
+        Mage::getStoreConfig('web/secure/base_url'). (Mage::getStoreConfig('xtest/force/index') ? 'index.php/' : ''),
+        $assertString);
+
+    return $assertString;
+  }
 }

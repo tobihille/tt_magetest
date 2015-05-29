@@ -95,18 +95,22 @@
               <a1><![CDATA[class=" cms-index-index cms-home"]]></a1>
             </assert>
           </url_8>
-          <url_9>
-            <url>/catalogsearch/result/?q=download</url>
-            <rendername>FE_CatalogSearch</rendername>
-            <assert>
-              <a1><![CDATA[<div class="pager">]]></a1>
-              <a2><![CDATA[<div class="count-container">]]></a2>
-              <a3><![CDATA[</a3><div class="product-info">]]></a3>
-              <a4><![CDATA[<h2 class="product-name">]]></a4>
-            </assert>
-          </url_9>
         </urls>
       </frontendtest>
+
+      <interactivetest>
+        <urls>
+          <url_1>
+            <url>/</url>
+            <rendername>FE_CustomerAccount</rendername>
+            <clickon><![CDATA[#header div.skip-links > div.account-cart-wrapper > a]]></clickon>
+            <assert>
+              <a1><![CDATA[<a class="skip-link skip-account skip-active" data-target-element="#header-account" href="[[unsecure_base_url]]customer/account/">]]></a1>
+              <a2><![CDATA[<div class="header-minicart">]]></a2>
+            </assert>
+          </url_1>
+        </urls>
+      </interactivetest>
 
       <admintest>
         <user>admin</user>
