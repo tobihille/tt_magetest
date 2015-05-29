@@ -37,52 +37,68 @@
         <index>true</index>
       </force>
 
-      <fetest>
+      <frontendtest>
         <homepage>
           <url_1>
             <url>/</url>
             <rendername>FE_homePage</rendername>
-            <assert><![CDATA[class=" cms-index-index cms-home"]]></assert>
+            <assert>
+              <a1><![CDATA[class=" cms-index-index cms-home"]]></a1>
+            </assert>
           </url_1>
         </homepage>
         <footerlinks>
           <url_1>
             <url>/about-magento-demo-store</url>
             <rendername>FE_Footer_AboutPage</rendername>
-            <assert><![CDATA[class=" cms-page-view cms-about-magento-demo-store"]]></assert>
+            <assert>
+              <a1><![CDATA[class=" cms-page-view cms-about-magento-demo-store"]]></a1>
+            </assert>
           </url_1>
           <url_2>
             <url>/contacts</url>
             <rendername>FE_Footer_Contacts</rendername>
-            <assert><![CDATA[class=" contacts-index-index"]]></assert>
+            <assert>
+              <a1><![CDATA[class=" contacts-index-index"]]></a1>
+            </assert>
           </url_2>
           <url_3>
             <url>/customer-service</url>
             <rendername>FE_Footer_CustomerService</rendername>
-            <assert><![CDATA[class=" cms-page-view cms-customer-service"]]></assert>
+            <assert>
+              <a1><![CDATA[class=" cms-page-view cms-customer-service"]]></a1>
+            </assert>
           </url_3>
           <url_4>
             <url>/privacy-policy-cookie-restriction-mode</url>
             <rendername>FE_Footer_Privacy</rendername>
-            <assert><![CDATA[class=" cms-page-view cms-privacy-policy-cookie-restriction-mode"]]></assert>
+            <assert>
+              <a1><![CDATA[class=" cms-page-view cms-privacy-policy-cookie-restriction-mode"]]></a1>
+            </assert>
           </url_4>
           <url_5>
             <url>/catalog/seo_sitemap/category</url>
             <rendername>FE_Footer_Sitemap</rendername>
-            <assert><![CDATA[class=" catalog-seo-sitemap-category"]]></assert>
+            <assert>
+              <a1><![CDATA[class=" catalog-seo-sitemap-category"]]></a1>
+            </assert>
           </url_5>
           <url_6>
             <url>/catalogsearch/term/popular</url>
             <rendername>FE_Footer_SearchPopular</rendername>
-            <assert><![CDATA[class=" catalogsearch-term-popular"]]></assert>
+            <assert>
+              <a1><![CDATA[class=" catalogsearch-term-popular"]]></a1>
+            </assert>
           </url_6>
           <url_7>
             <url>/catalogsearch/advanced</url>
             <rendername>FE_Footer_SearchAdvanced</rendername>
-            <assert><![CDATA[class=" catalogsearch-advanced-index"]]></assert>
+            <assert>
+              <a1><![CDATA[class=" catalogsearch-advanced-index"]]></a1>
+            </assert>
           </url_7>
         </footerlinks>
-      </fetest>
+      </frontendtest>
 
       <admintest>
         <user>admin</user>
@@ -90,7 +106,9 @@
           <url_1>
             <url>/admin/sales_order/index</url>
             <rendername>ADM_Sales_OrderIndex</rendername>
-            <assert><![CDATA[<a href="#" name="real_order_id" title="asc" class="not-sort">]]></assert>
+            <assert>
+              <a1><![CDATA[<a href="#" name="real_order_id" title="asc" class="not-sort">]]></a1>
+            </assert>
           </url_1>
         </sales>
       </admintest>
@@ -105,12 +123,40 @@
         <pages>
           <url_1>
             <url>/customer/account/index</url>
-            <assert><![CDATA[<body class=" customer-account-index customer-account">]]></assert>
+            <assert>
+              <a1><![CDATA[<body class=" customer-account-index customer-account">]]></a1>
+            </assert>
             <rendername>FE_Customer_Dashboard</rendername>
           </url_1>
         </pages>
       </customertest>
 
+      <producttest>
+        <products>
+          <sku_1>
+            <sku>hbm010</sku>
+            <assert>
+              <a1><![CDATA[<div class="price-box">]]></a1>
+              <a2><![CDATA[<span class="regular-price" id="product-price-]]></a2>
+              <a3><![CDATA[<span class="price">]]></a3>
+            </assert>
+            <rendername>FE_Product_hbm010</rendername>
+          </sku_1>
+        </products>
+      </producttest>
+
+      <catalogtest>
+        <categories>
+          <cat_1>
+            <catid>22</catid>
+            <assert>
+              <a1><![CDATA[<div class="sort-by">]]></a1>
+              <a2><![CDATA[<div class="product-info">]]></a2>
+              <a3><![CDATA[<div class="price-box">]]></a3>
+            </assert>
+          </cat_1>
+        </categories>
+      </catalogtest>
     </xtest>
 
   </default>

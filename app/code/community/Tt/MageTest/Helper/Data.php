@@ -5,9 +5,9 @@ class Tt_MageTest_Helper_Data extends Mage_Core_Helper_Abstract
 
   /**
    * @param $config
-   * @param Tt_MageTest_Helper_AbstractFrontendT|Tt_MageTest_Helper_AbstractAdminT $testObject
+   * @param Codex_Xtest_Xtest_Unit_Abstract $testObject
    */
-  public function doGeneralTest($config, Codex_Xtest_Xtest_Unit_Abstract $testObject)
+  public function doGeneralTest(array $config, Codex_Xtest_Xtest_Unit_Abstract $testObject)
   {
     if ( !method_exists($testObject, 'doGeneralAssert') )
     {
@@ -17,13 +17,72 @@ class Tt_MageTest_Helper_Data extends Mage_Core_Helper_Abstract
 
     foreach ($config as $configEntry)
     {
+      if ( !isset($configEntry['url']) )
+      {
+        $configEntry['url'] = $this->fetchUrlFromConfig($configEntry);
+      }
+
       $testObject->dispatch($configEntry['url']);
       $responseBody = $testObject->getResponseBody();
       $testObject->renderHtml($configEntry['rendername'], $responseBody);
 
-      $testObject->assertContains($configEntry['assert'], $responseBody);
+      if ( is_array($configEntry['assert']) )
+      {
+        foreach ($configEntry['assert'] as $assert)
+        {
+          $testObject->assertContains($assert, $responseBody);
+        }
+      }
+      else
+      {
+        $testObject->assertContains($configEntry['assert'], $responseBody);
+      }
+
       $testObject->doGeneralAssert($responseBody);
     }
+  }
+
+  public function fetchUrlFromConfig(array $configEntry)
+  {
+    $url = null;
+
+    if ( isset($configEntry['sku']) )
+    {
+      $prod = Mage::getModel('catalog/product')->getCollection()
+        ->addFieldToFilter('sku', $configEntry['sku']);
+      $prod = $prod->getFirstItem();
+
+      if ( $prod && $prod->getId() )
+      {
+        $url = $prod->getProductUrl();
+      }
+    }
+    else if ( isset($configEntry['catid']) )
+    {
+      $cat = Mage::getModel('catalog/category')->load($configEntry['catid']);
+
+      if ( $cat && $cat->getId() )
+      {
+        $url = $cat->getUrl();
+      }
+    }
+
+    error_log($url);
+
+    if ( stripos($url, 'http') !== false )
+    {
+      $url = str_replace(Mage::getStoreConfig('web/unsecure/base_url'), '', $url);
+      if ( Mage::getStoreConfig('xtest/force/index') == true )
+      {
+        $url = str_replace('index.php', '', $url);
+      }
+
+      $url = trim($url, '/');
+    }
+
+    error_log($url);
+
+    return $url;
   }
 
 }

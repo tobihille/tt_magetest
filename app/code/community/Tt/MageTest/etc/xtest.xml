@@ -94,17 +94,6 @@
       </fixtures>
 
       <selenium>
-        <product>
-          <product_1>
-            <sku>hbm010</sku>
-          </product_1>
-        </product>
-
-        <catalog>
-          <category_1>
-            <id>22</id>
-          </category_1>
-        </catalog>
 
         <checkout>
 
