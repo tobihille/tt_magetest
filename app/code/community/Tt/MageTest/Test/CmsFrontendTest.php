@@ -4,20 +4,29 @@ class Tt_MageTest_Test_CmsFrontendTest extends Tt_MageTest_Helper_AbstractFronte
 {
 
   /**
-   *
+   * @var Tt_MageTest_Helper_Data
    */
+  protected $_helper = null;
+
+  public function __construct()
+  {
+    parent::__construct();
+
+    $this->_helper = Mage::helper('tt_magetest');
+  }
+
   public function testRenderHomepage()
   {
-    $homepageConf = self::getCmsConfig('homepage');
+    $homepageConf = self::getFrontendConfig('homepage');
 
-    $this->doGeneralTest($homepageConf);
+    $this->_helper->doGeneralTest($homepageConf, $this);
   }
 
   public function testRenderFooter()
   {
-    $footerConf = self::getCmsConfig('footerlinks');
+    $footerConf = self::getFrontendConfig('footerlinks');
 
-    $this->doGeneralTest($footerConf);
+    $this->_helper->doGeneralTest($footerConf, $this);
   }
 
 }

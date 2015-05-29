@@ -10,53 +10,6 @@
 
       </selenium>
 
-      <cmstest>
-        <homepage>
-          <url_1>
-            <url>/</url>
-            <rendername>FE_homePage</rendername>
-            <assert><![CDATA[class=" cms-index-index cms-home"]]></assert>
-          </url_1>
-        </homepage>
-        <footerlinks>
-          <url_1>
-            <url>/about-magento-demo-store</url>
-            <rendername>FE_Footer_AboutPage</rendername>
-            <assert><![CDATA[class=" cms-page-view cms-about-magento-demo-store"]]></assert>
-          </url_1>
-          <url_2>
-            <url>/contacts</url>
-            <rendername>FE_Footer_Contacts</rendername>
-            <assert><![CDATA[class=" contacts-index-index"]]></assert>
-          </url_2>
-          <url_3>
-            <url>/customer-service</url>
-            <rendername>FE_Footer_CustomerService</rendername>
-            <assert><![CDATA[class=" cms-page-view cms-customer-service"]]></assert>
-          </url_3>
-          <url_4>
-            <url>/privacy-policy-cookie-restriction-mode</url>
-            <rendername>FE_Footer_Privacy</rendername>
-            <assert><![CDATA[class=" cms-page-view cms-privacy-policy-cookie-restriction-mode"]]></assert>
-          </url_4>
-          <url_5>
-            <url>/catalog/seo_sitemap/category</url>
-            <rendername>FE_Footer_Sitemap</rendername>
-            <assert><![CDATA[class=" catalog-seo-sitemap-category"]]></assert>
-          </url_5>
-          <url_6>
-            <url>/catalogsearch/term/popular</url>
-            <rendername>FE_Footer_SearchPopular</rendername>
-            <assert><![CDATA[class=" catalogsearch-term-popular"]]></assert>
-          </url_6>
-          <url_7>
-            <url>/catalogsearch/advanced</url>
-            <rendername>FE_Footer_SearchAdvanced</rendername>
-            <assert><![CDATA[class=" catalogsearch-advanced-index"]]></assert>
-          </url_7>
-        </footerlinks>
-      </cmstest>
-
       <fixtures>
 
         <customer>

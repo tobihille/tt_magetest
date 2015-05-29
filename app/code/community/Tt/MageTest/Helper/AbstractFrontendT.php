@@ -3,9 +3,9 @@
 class Tt_MageTest_Helper_AbstractFrontendT extends Codex_Xtest_Xtest_Unit_Frontend
 {
 
-  public static function getCmsConfig($path)
+  public static function getFrontendConfig($path)
   {
-    $path = 'xtest/cmstest/'.$path;
+    $path = 'xtest/frontendtest/'.$path;
     $config = Mage::getStoreConfig($path);
     if( $config === NULL ) {
       Mage::throwException( sprintf('Config path %s is null', $path) );
@@ -13,27 +13,12 @@ class Tt_MageTest_Helper_AbstractFrontendT extends Codex_Xtest_Xtest_Unit_Fronte
     return $config;
   }
 
-  protected function doGeneralTest($config)
-  {
-    foreach ($config as $configEntry)
-    {
-      $this->dispatch($configEntry['url']);
-      $responseBody = $this->getResponseBody();
-      $this->renderHtml($configEntry['rendername'], $responseBody);
-
-      $this->assertContains($configEntry['assert'], $responseBody);
-      $this->doGeneralAssert($responseBody);
-    }
-  }
-
   public function doGeneralAssert($textToCheck)
   {
-
     $this->assertContains( Mage::getUrl('checkout/cart'), $textToCheck);
     $this->assertContains( Mage::getUrl('checkout'), $textToCheck);
     $this->assertContains( Mage::getUrl('customer/account'), $textToCheck);
     $this->assertContains( "</body>", $textToCheck);
-
   }
 
 }
