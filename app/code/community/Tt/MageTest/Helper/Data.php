@@ -22,6 +22,8 @@ class Tt_MageTest_Helper_Data extends Mage_Core_Helper_Abstract
         $configEntry['url'] = $this->fetchUrlFromConfig($configEntry);
       }
 
+      error_log( $this->__('Running tests for URL %s', $configEntry['url']) );
+
       $testObject->dispatch($configEntry['url']);
       $responseBody = $testObject->getResponseBody();
       $testObject->renderHtml($configEntry['rendername'], $responseBody);
@@ -67,8 +69,6 @@ class Tt_MageTest_Helper_Data extends Mage_Core_Helper_Abstract
       }
     }
 
-    error_log($url);
-
     if ( stripos($url, 'http') !== false )
     {
       $url = str_replace(Mage::getStoreConfig('web/unsecure/base_url'), '', $url);
@@ -79,8 +79,6 @@ class Tt_MageTest_Helper_Data extends Mage_Core_Helper_Abstract
 
       $url = trim($url, '/');
     }
-
-    error_log($url);
 
     return $url;
   }
