@@ -57,6 +57,7 @@ class Tt_MageTest_Test_CheckoutTest extends Tt_MageTest_Xtest_Selenium_TestCase
 
   public function testOnepageCheckout()
   {
+    error_log('Running tests for checkout');
     $cartConfig = $this->getSeleniumConfig('checkout/addtocart');
 
     $noShippingMarker = true; //indicates that only virtual goods are in cart
@@ -93,6 +94,8 @@ class Tt_MageTest_Test_CheckoutTest extends Tt_MageTest_Xtest_Selenium_TestCase
 
     }
 
+    error_log('  skip shipping: '.($noShippingMarker ? 'yes' : 'no'));
+
     /** @var $cartPageObject Codex_Xtest_Xtest_Pageobject_Frontend_Cart */
     $cartPageObject = $this->getPageObject('xtest/pageobject_frontend_cart');
     $cartPageObject->open();
@@ -127,14 +130,14 @@ class Tt_MageTest_Test_CheckoutTest extends Tt_MageTest_Xtest_Selenium_TestCase
       // ---
 
       $checkoutPageObject->assertStepIsActive('shipping_method');
-      $checkoutPageObject->setShippingMethod( self::getSeleniumConfig('payment_method/method') );
+      $checkoutPageObject->setShippingMethod( self::getSeleniumConfig('checkout/shipping_method') );
       $checkoutPageObject->takeResponsiveScreenshots('shipping method');
       $checkoutPageObject->nextStep();
     }
     // ---
 
     $checkoutPageObject->assertStepIsActive('payment');
-    $checkoutPageObject->setPaymentMethod( self::getSeleniumConfig('payment_method/method') );
+    $checkoutPageObject->setPaymentMethod( self::getSeleniumConfig('checkout/payment_method') );
     $checkoutPageObject->takeResponsiveScreenshots('payment method');
     $checkoutPageObject->nextStep();
 

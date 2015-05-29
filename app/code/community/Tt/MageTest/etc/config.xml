@@ -90,11 +90,21 @@
           </url_7>
           <url_8>
             <url>/</url>
-            <rendername>FE_homePage</rendername>
+            <rendername>FE_HomePage</rendername>
             <assert>
               <a1><![CDATA[class=" cms-index-index cms-home"]]></a1>
             </assert>
           </url_8>
+          <url_9>
+            <url>/catalogsearch/result/?q=download</url>
+            <rendername>FE_CatalogSearch</rendername>
+            <assert>
+              <a1><![CDATA[<div class="pager">]]></a1>
+              <a2><![CDATA[<div class="count-container">]]></a2>
+              <a3><![CDATA[</a3><div class="product-info">]]></a3>
+              <a4><![CDATA[<h2 class="product-name">]]></a4>
+            </assert>
+          </url_9>
         </urls>
       </frontendtest>
 
