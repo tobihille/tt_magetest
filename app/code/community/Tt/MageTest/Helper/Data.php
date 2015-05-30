@@ -3,6 +3,19 @@
 class Tt_MageTest_Helper_Data extends Mage_Core_Helper_Abstract
 {
 
+  public static function getPageConfig($path, $replacements = array())
+  {
+    $path = 'xtest/pageconfig/'.$path;
+    $config = Mage::getStoreConfig($path);
+
+    if ( !empty($config) && is_string($config) )
+    {
+      $config = Mage::helper('tt_magetest')->stringParser($config, $replacements);
+    }
+
+    return $config;
+  }
+
   /**
    * Wrapper for simple call in *Test - Classes
    * @param array $config Array which contains all XML-Nodes belonging to this test
@@ -69,13 +82,13 @@ class Tt_MageTest_Helper_Data extends Mage_Core_Helper_Abstract
     {
       foreach ($configEntry['assert'] as $assert)
       {
-        $assert = $this->assertParser($assert);
+        $assert = $this->stringParser($assert);
         $page->assertContains($assert, $responseBody, 'Assert failed: '.$assert);
       }
     }
     else
     {
-      $assert = $this->assertParser($configEntry['assert']);
+      $assert = $this->stringParser($configEntry['assert']);
       $page->assertContains($assert, $responseBody, 'Assert failed: '.$assert);
     }
 
@@ -112,13 +125,13 @@ class Tt_MageTest_Helper_Data extends Mage_Core_Helper_Abstract
     {
       foreach ($configEntry['assert'] as $assert)
       {
-        $assert = $this->assertParser($assert);
+        $assert = $this->stringParser($assert);
         $testObject->assertContains($assert, $responseBody);
       }
     }
     else
     {
-      $assert = $this->assertParser($configEntry['assert']);
+      $assert = $this->stringParser($configEntry['assert']);
       $testObject->assertContains($assert, $responseBody);
     }
 
@@ -190,22 +203,30 @@ class Tt_MageTest_Helper_Data extends Mage_Core_Helper_Abstract
 
   /**
    * Replaces certain strings in given string
-   * @param $assertString
+   * @param $rawString
    * @return string
    */
-  public function assertParser($assertString)
+  public function stringParser($rawString, $additionalReplacements = array())
   {
-    $assertString = str_replace(
+    $replacedString = str_replace(
         '[[unsecure_base_url]]',
         Mage::getStoreConfig('web/unsecure/base_url'). (Mage::getStoreConfig('xtest/force/index') ? 'index.php/' : ''),
-        $assertString);
+        $rawString);
 
-    $assertString = str_replace(
+    $replacedString = str_replace(
         '[[secure_base_url]]',
         Mage::getStoreConfig('web/secure/base_url'). (Mage::getStoreConfig('xtest/force/index') ? 'index.php/' : ''),
-        $assertString);
+        $replacedString);
 
-    return $assertString;
+    foreach ( $additionalReplacements as $key => $value )
+    {
+      $replacedString = str_replace(
+          '[['.$key.']]',
+          $value,
+          $replacedString);
+    }
+
+    return $replacedString;
   }
 
   /**

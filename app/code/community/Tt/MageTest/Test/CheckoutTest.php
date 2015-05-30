@@ -74,7 +74,7 @@ class Tt_MageTest_Test_CheckoutTest extends Tt_MageTest_Xtest_Selenium_Checkout
         $noShippingMarker = false;
       }
 
-      /** @var $productPageObject Codex_Xtest_Xtest_Pageobject_Frontend_Product */
+      /** @var $productPageObject Tt_Magetest_Xtest_Pageobject_Frontend_Product */
       $productPageObject = $this->getPageObject('tt_magetest/pageobject_frontend_product');
 
       $productPageObject->openBySku( $_productData['sku'] );
@@ -96,8 +96,8 @@ class Tt_MageTest_Test_CheckoutTest extends Tt_MageTest_Xtest_Selenium_Checkout
 
     error_log('  skip shipping: '.($noShippingMarker ? 'yes' : 'no'));
 
-    /** @var $cartPageObject Codex_Xtest_Xtest_Pageobject_Frontend_Cart */
-    $cartPageObject = $this->getPageObject('xtest/pageobject_frontend_cart');
+    /** @var $cartPageObject Tt_MageTest_Xtest_Pageobject_Frontend_Cart */
+    $cartPageObject = $this->getPageObject('tt_magetest/pageobject_frontend_cart');
     $cartPageObject->open();
 
     $cartPageObject->takeResponsiveScreenshots('products in cart');
@@ -109,8 +109,8 @@ class Tt_MageTest_Test_CheckoutTest extends Tt_MageTest_Xtest_Selenium_Checkout
 
     // ---
 
-    /** @var $checkoutPageObject Codex_Xtest_Xtest_Pageobject_Frontend_Checkout */
-    $checkoutPageObject = $this->getPageObject('xtest/pageobject_frontend_checkout');
+    /** @var $checkoutPageObject Tt_MageTest_Xtest_Pageobject_Frontend_Checkout */
+    $checkoutPageObject = $this->getPageObject('tt_magetest/pageobject_frontend_checkout');
 
     $checkoutPageObject->takeResponsiveScreenshots('login');
     $checkoutPageObject->login( self::$_customerEmail, self::$_customerPassword );
@@ -118,7 +118,7 @@ class Tt_MageTest_Test_CheckoutTest extends Tt_MageTest_Xtest_Selenium_Checkout
 
     // ---
 
-    $checkoutPageObject->setBillingAddress();
+    $checkoutPageObject->setCheckoutAddress('billing:');
     $checkoutPageObject->takeResponsiveScreenshots('billing address');
     $checkoutPageObject->nextStep();
 

@@ -221,6 +221,44 @@
         </customer>
 
       </checkouttest>
+
+      <pageconfig>
+        <product>
+          <addtocartform>#product_addtocart_form</addtocartform>
+          <qtyinput>#qty</qtyinput>
+          <addtocartbutton>.add-to-cart-buttons button</addtocartbutton>
+          <addtocartmessage>ul.messages li.success-msg</addtocartmessage>
+          <productname>.product-name</productname>
+        </product>
+        <cart>
+          <shoppingcarttable>#shopping-cart-table</shoppingcarttable>
+          <cartform>div.cart form</cartform>
+          <couponform>#discount-coupon-form</couponform>
+          <cartitemsrows>tr</cartitemsrows>
+          <productprice>.product-cart-price .price</productprice>
+          <rowtotal>.product-cart-total .price</rowtotal>
+          <productname>.product-name</productname>
+          <qtyinput>input.input-text.qty[name="cart[[[item_id]]][qty]</qtyinput>
+          <grandtotal>.shopping-cart-totals-table td .price</grandtotal>
+          <proceedcheckoutbtn>.btn-proceed-checkout</proceedcheckoutbtn>
+          <couponcode>#coupon_code</couponcode>
+          <itemidcss>a</itemidcss>
+          <itemidregex>#checkout/cart/delete/id/([0-9]*)/#siU</itemidregex>
+        </cart>
+        <checkout>
+          <loginform>#login-form</loginform>
+          <loginemail>#login-email</loginemail>
+          <loginpass>#login-password</loginpass>
+          <currentstepactive>#opc-[[step_id]]</currentstepactive>
+          <stepactivemarker>active</stepactivemarker>
+          <currentstep>#checkoutSteps .section.active</currentstep>
+          <shippingmethod>#s_method_[[method]]</shippingmethod>
+          <paymentmethod>#p_method_[[method]]</paymentmethod>
+          <agreements>input[type=checkbox]</agreements>
+          <activestepelement>#opc-[[step_name]]</activestepelement>
+          <nextstepbutton>.buttons-set button</nextstepbutton>
+        </checkout>
+      </pageconfig>
     </xtest>
 
 
