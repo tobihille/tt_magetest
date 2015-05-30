@@ -22,6 +22,9 @@ Magento (of course)
 
 Of course you can use Xtest as normal (see Documentation) but you can do simple Pagetests with minimal effort with this module.<br/>
 
+For a complete overwiew have a look at: [config.xml](https://raw.githubusercontent.com/tobihille/tt_magetest/master/app/code/community/Tt/MageTest/etc/config.xml "config.xml")<br/>
+The basics are covered below:<br/>
+
 ## Test multiple Frontend-Pages by url
 
 place just an other URL-Element into /config/default/xtest/frontendtest/urls following this schema: <pre>&lt;url_1&gt;<br/>
@@ -79,3 +82,22 @@ place just an other URL-Element into /config/default/xtest/catalogtest/categorie
 &lt;/cat_1&gt;</pre>
 
 
+## Test a page 'interactive' (click an an element and then assert)
+
+place just an other URL-Element into /config/default/xtest/catalogtest/categories following this schema: <pre>&lt;url_1&gt;<br/>
+  &lt;url&gt;/&lt;/url&gt;<br/>
+  &lt;rendername&gt;FE_CustomerAccount&lt;/rendername&gt;<br/>
+  &lt;clickon&gt;&lt;![CDATA[#header div.skip-links &gt; div.account-cart-wrapper &gt; a]]&gt;&lt;/clickon&gt;<br/>
+  &lt;assert&gt;<br/>
+    &lt;a1&gt;&lt;![CDATA[&lt;a class="skip-link skip-account skip-active" data-target-element="#header-account" href="[[unsecure_base_url]]customer/account/"&gt;]]&gt;&lt;/a1&gt;<br/>
+    &lt;a2&gt;&lt;![CDATA[&lt;div class="header-minicart"&gt;]]&gt;&lt;/a2&gt;<br/>
+  &lt;/assert&gt;<br/>
+&lt;/url_1&gt;</pre>
+
+## Test the checkout
+
+Just have a look at config.xml at /config/default/xtest/checkouttest as well as xtext.xml at /config/default/xtest/selenium/checkout
+
+## Configuring Test to fit for customized templates
+
+Just have a look at config.xml at /config/default/xtest/pageconfig, you can configure every aspect covered in this module.
