@@ -8,7 +8,7 @@ Furthermore it should be easy to extend to allow it to easily cover third-party 
 
 # Version
 
-The tests are based on Magento 1.9.1 CE with sample data.
+The included tests are based on Magento 1.9.1 CE with sample data but if you modify the XMLs it should work on any magento where Xtest can run.
 
 # Requirements
 
