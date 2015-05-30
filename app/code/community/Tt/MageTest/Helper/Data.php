@@ -4,8 +4,9 @@ class Tt_MageTest_Helper_Data extends Mage_Core_Helper_Abstract
 {
 
   /**
-   * @param $config
-   * @param mixed $testObject
+   * Wrapper for simple call in *Test - Classes
+   * @param array $config Array which contains all XML-Nodes belonging to this test
+   * @param $testObject should be "$this", needs to implement doGeneralAssert
    */
   public function doGeneralTest(array $config, $testObject)
   {
@@ -32,6 +33,11 @@ class Tt_MageTest_Helper_Data extends Mage_Core_Helper_Abstract
     }
   }
 
+  /**
+   * Runs a Selenium_TestCase, useful if we are running an interactive Test with assertions
+   * @param array $configEntry Single test-node from XML
+   * @param Codex_Xtest_Xtest_Selenium_TestCase $testObject Passed testObject, needs to implement doGeneralAssert
+   */
   protected function doPageTest(array $configEntry, Codex_Xtest_Xtest_Selenium_TestCase $testObject)
   {
     /**
@@ -47,7 +53,7 @@ class Tt_MageTest_Helper_Data extends Mage_Core_Helper_Abstract
       $urlinfo['query'] = $configEntry['url']['params'];
     }
 
-    $url = http_build_url($urlinfo);
+    $url = $this->http_build_url($urlinfo);
     $page->url($url);
 
     $elements = $page->findElementsByCssSelector($configEntry['clickon']);
@@ -78,6 +84,12 @@ class Tt_MageTest_Helper_Data extends Mage_Core_Helper_Abstract
     $testObject->doGeneralAssert($responseBody);
   }
 
+  /**
+   * Does a 'simple' test, no interactivity
+   * @param array $configEntry Single test-node from XML
+   * @param Codex_Xtest_Xtest_Unit_Abstract $testObject Passed testObject, needs to implement doGeneralAssert
+   * @param bool $omitScreenshot defines if to take a screenshots, default = yes (do not omit)
+   */
   protected function doRegularTest(array $configEntry, Codex_Xtest_Xtest_Unit_Abstract $testObject, $omitScreenshot = false)
   {
     if ( $configEntry['url']['method'] === 'get' )
@@ -113,6 +125,11 @@ class Tt_MageTest_Helper_Data extends Mage_Core_Helper_Abstract
     $testObject->doGeneralAssert($responseBody);
   }
 
+  /**
+   * Parses config-entry and generates a url (get URL from SKU, get URL from Category-ID, fetch query-params)
+   * @param array $configEntry
+   * @return array in format (url => /foo..., params => array(bar => baz), method => get)
+   */
   public function fetchUrlFromConfig(array $configEntry)
   {
     $url = null;
@@ -171,6 +188,11 @@ class Tt_MageTest_Helper_Data extends Mage_Core_Helper_Abstract
     return array('url' => $url, 'params' => $paramArray, 'method' => $method);
   }
 
+  /**
+   * Replaces certain strings in given string
+   * @param $assertString
+   * @return string
+   */
   public function assertParser($assertString)
   {
     $assertString = str_replace(
@@ -184,5 +206,47 @@ class Tt_MageTest_Helper_Data extends Mage_Core_Helper_Abstract
         $assertString);
 
     return $assertString;
+  }
+
+  /**
+   * Wrapper for http_build_url, just to reduce dependencies
+   * @param array $urlinfo Output-array from parse_url
+   * @return string
+   */
+  protected function http_build_url(array $urlinfo)
+  {
+    $str = '';
+
+    $str .= $urlinfo['scheme'].'://';
+
+    if ( !empty($urlinfo['user']) )
+    {
+      $str .= $urlinfo['user'];
+    }
+    if ( !empty($urlinfo['pass']) )
+    {
+      $str .= ':'.$urlinfo['pass'];
+    }
+
+    $str .= $urlinfo['host'];
+
+    if ( !empty($urlinfo['port']) )
+    {
+      $str .= ':'.$urlinfo['port'];
+    }
+
+    $str .= '/'.$urlinfo['path'];
+
+    if ( !empty($urlinfo['query']) )
+    {
+      $str .= '?'.http_build_query($urlinfo['query']);
+    }
+
+    if ( !empty($urlinfo['fragment']) )
+    {
+      $str .= '#'.$urlinfo['fragment'];
+    }
+
+    return $str;
   }
 }

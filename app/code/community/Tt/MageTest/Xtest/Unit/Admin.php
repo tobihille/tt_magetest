@@ -13,6 +13,12 @@ class Tt_MageTest_Xtest_Unit_Admin extends Codex_Xtest_Xtest_Unit_Admin
     return $config;
   }
 
+  /**
+   * Change compared to parent-class: get admin-user from config
+   * @param Codex_Xtest_Model_Core_Controller_Request_Http $request
+   * @param null $postData
+   * @param null $adminuser
+   */
   protected function _doDispatch(Codex_Xtest_Model_Core_Controller_Request_Http $request, $postData = null, $adminuser = null)
   {
     Mage::app()->getStore()->setConfig("admin/security/use_form_key", 0);
