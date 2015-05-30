@@ -17,12 +17,9 @@ class Tt_MageTest_Helper_Data extends Mage_Core_Helper_Abstract
 
     foreach ($config as $configEntry)
     {
-      if ( !isset($configEntry['url']) )
-      {
-        $configEntry['url'] = $this->fetchUrlFromConfig($configEntry);
-      }
+      $configEntry['url'] = $this->fetchUrlFromConfig($configEntry);
 
-      error_log( $this->__('Running tests for URL %s', $configEntry['url']) );
+      error_log( $this->__('Running tests for URL %s', $configEntry['url']['url']) );
 
       if ( isset($configEntry['clickon']) && $testObject instanceof Codex_Xtest_Xtest_Selenium_TestCase)
       {
@@ -42,9 +39,16 @@ class Tt_MageTest_Helper_Data extends Mage_Core_Helper_Abstract
      */
     $page = $testObject->getPageObject('xtest/pageobject_frontend_homepage');
 
-    $baseUrl = Mage::getBaseUrl();
-    $baseUrl = trim($baseUrl, '/');
-    $page->url($baseUrl.$configEntry['url']);
+    $urlinfo = parse_url(Mage::getBaseUrl());
+    $urlinfo['path'] = trim($urlinfo['path']).$configEntry['url']['url'];
+
+    if ( $configEntry['url']['method'] === 'get' ) //POST is not poassible with selenium :-(
+    {
+      $urlinfo['query'] = $configEntry['url']['params'];
+    }
+
+    $url = http_build_url($urlinfo);
+    $page->url($url);
 
     $elements = $page->findElementsByCssSelector($configEntry['clickon']);
 
@@ -76,7 +80,15 @@ class Tt_MageTest_Helper_Data extends Mage_Core_Helper_Abstract
 
   protected function doRegularTest(array $configEntry, Codex_Xtest_Xtest_Unit_Abstract $testObject, $omitScreenshot = false)
   {
-    $testObject->dispatch($configEntry['url']);
+    if ( $configEntry['url']['method'] === 'get' )
+    {
+      $testObject->dispatch($configEntry['url']['url'], $configEntry['url']['params']);
+    }
+    else
+    {
+      $testObject->dispatch($configEntry['url']['url'], array(), $configEntry['url']['params']);
+    }
+
     $responseBody = $testObject->getResponseBody();
 
     if ( !$omitScreenshot )
@@ -125,6 +137,10 @@ class Tt_MageTest_Helper_Data extends Mage_Core_Helper_Abstract
         $url = $cat->getUrl();
       }
     }
+    else if ( isset($configEntry['url']) )
+    {
+      $url = $configEntry['url'];
+    }
 
     if ( stripos($url, 'http') !== false )
     {
@@ -137,7 +153,22 @@ class Tt_MageTest_Helper_Data extends Mage_Core_Helper_Abstract
       $url = trim($url, '/');
     }
 
-    return $url;
+    $paramArray = array();
+    $method = 'get';
+
+    if (  isset($configEntry['params']) )
+    {
+      foreach ($configEntry['params'] as $param)
+      {
+        $paramArray[$param['key']] = $param['value'];
+        if ( isset($param['method']) )
+        {
+          $method = $param['method'];
+        }
+      }
+    }
+
+    return array('url' => $url, 'params' => $paramArray, 'method' => $method);
   }
 
   public function assertParser($assertString)

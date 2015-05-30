@@ -95,6 +95,24 @@
               <a1><![CDATA[class=" cms-index-index cms-home"]]></a1>
             </assert>
           </url_8>
+          <url_9>
+            <url>/catalogsearch/result</url>
+            <params>
+              <p1>
+                <key>q</key>
+                <value>download</value>
+                <method>get</method>
+              </p1>
+            </params>
+            <rendername>FE_HomePage</rendername>
+            <assert>
+              <a1><![CDATA[<li class="search">]]></a1>
+              <a2><![CDATA[<h1>Search results for 'download'</h1>]]></a2>
+              <a3><![CDATA[<div class="pager">]]></a3>
+              <a4><![CDATA[<div class="product-info">]]></a4>
+              <a5><![CDATA[<div class="price-box">]]></a5>
+            </assert>
+          </url_9>
         </urls>
       </frontendtest>
 
