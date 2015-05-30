@@ -14,9 +14,11 @@ The tests are based on Magento 1.9.1 CE with sample data.
 
 Xtest from Code-x (https://github.com/code-x/Xtest)
 
+Selenium server (http://docs.seleniumhq.org/download/)
+
 Phpunit (included in Xtest)
 
-Magento (of course)
+Magento (of course) with sampledata (to run the included tests)
 
 # Usage
 
