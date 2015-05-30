@@ -69,11 +69,29 @@ class Tt_MageTest_Helper_Data extends Mage_Core_Helper_Abstract
     $url = $this->http_build_url($urlinfo);
     $page->url($url);
 
-    $elements = $page->findElementsByCssSelector($configEntry['clickon']);
-
-    foreach ($elements as $element)
+    if ( !empty($configEntry['clickon']) )
     {
-      $element->click();
+      if ( is_string($configEntry['clickon']) )
+      {
+        $elements = $page->findElementsByCssSelector($configEntry['clickon']);
+
+        foreach ($elements as $element)
+        {
+          $element->click();
+        }
+      }
+      else if ( is_array($configEntry['clickon']) )
+      {
+        foreach ($configEntry['clickon'] as $clickElement)
+        {
+          $elements = $page->findElementsByCssSelector($clickElement);
+
+          foreach ($elements as $element)
+          {
+            $element->click();
+          }
+        }
+      }
     }
 
     $responseBody = $page->source();

@@ -78,5 +78,32 @@ class Tt_MageTest_Xtest_Pageobject_Frontend_Product extends Codex_Xtest_Xtest_Pa
     return $this->byCssSelector($css)->text();
   }
 
+  public function executeClickOn($clickon)
+  {
+    if ( empty($clickon) )
+    {
+      return;
+    }
 
+    if ( is_string($clickon) )
+    {
+      $clickElements = $this->findElementsByCssSelector( $clickon );
+      foreach ($clickElements as $element)
+      {
+        $element->click();
+      }
+    }
+
+    if ( is_array($clickon) )
+    {
+      foreach ($clickon as $clickElement)
+      {
+        $clickElements = $this->findElementsByCssSelector( $clickElement );
+        foreach ($clickElements as $element)
+        {
+          $element->click();
+        }
+      }
+    }
+  }
 }

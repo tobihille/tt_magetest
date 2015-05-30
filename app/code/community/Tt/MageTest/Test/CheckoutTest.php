@@ -82,11 +82,7 @@ class Tt_MageTest_Test_CheckoutTest extends Tt_MageTest_Xtest_Selenium_Checkout
 
       if ( isset($_productData['clickon']) )
       {
-        $clickElements = $productPageObject->findElementsByCssSelector( $_productData['clickon'] );
-        foreach ($clickElements as $element)
-        {
-          $element->click();
-        }
+        $productPageObject->executeClickOn($_productData['clickon']);
       }
 
       $productPageObject->pressAddToCart();

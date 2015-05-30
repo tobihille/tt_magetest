@@ -108,7 +108,9 @@
             <product_1>
               <sku>hbm010</sku>
               <qty>1</qty>
-              <clickon><![CDATA[#downloadable-links-list > li > input:nth-of-type(1)]]></clickon>
+              <clickon>
+                <c1><![CDATA[#downloadable-links-list > li > input:nth-of-type(1)]]></c1>
+              </clickon>
             </product_1>
 
           </addtocart>
