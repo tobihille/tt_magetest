@@ -84,7 +84,7 @@ place just an other URL-Element into /config/default/xtest/catalogtest/categorie
 &lt;/cat_1&gt;</pre>
 
 
-## Test a page 'interactive' (click an an element and then assert)
+## Test a page 'interactive' (click an element and then assert)
 
 place just an other URL-Element into /config/default/xtest/catalogtest/categories following this schema: <pre>&lt;url_1&gt;<br/>
   &lt;url&gt;/&lt;/url&gt;<br/>
